@@ -1,2 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application>
+        <activity android:name="com.qualtrics.digital.QualtricsSurveyActivity" />
+        <activity
+            android:name="com.qualtrics.digital.QualtricsPopOverActivity"
+            android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
+            android:theme="@style/Qualtrics.Theme.Transparent" />
+    </application>
 </manifest>
