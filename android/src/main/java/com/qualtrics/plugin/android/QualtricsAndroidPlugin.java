@@ -39,9 +39,13 @@ public class QualtricsAndroidPlugin extends Plugin {
 
         Qualtrics.instance().evaluateIntercept(interceptId, targetingResult -> {
             if (targetingResult.passed()) {
-                ret.put("success", true);
-                Qualtrics.instance().displayIntercept(getContext(), interceptId);
-                Log.v("Qualtrics", "displayIntercept " + interceptId);
+                boolean isDisplay = Qualtrics.instance().displayIntercept(getContext(), interceptId, 0, true);
+                if (isDisplay) {
+                    ret.put("success", true);
+                } else {
+                    ret.put("success", false);
+                    ret.put("message", "Qualtrics survey no displayed");
+                }
             } else if (targetingResult.getTargetingResultStatus() != null) {
                 ret.put("success", false);
                 if (targetingResult.getError() != null) {

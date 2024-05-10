@@ -25,16 +25,15 @@ npx cap sync
 ### initializeQualtricsWithParams(...)
 
 ```typescript
-initializeQualtricsWithParams(brandId: String, projectId: String) => void
+initializeQualtricsWithParams(data: { brandId: String; projectId: String; }) => void
 ```
 
 initializeQualtricsWithParams
 Must be called when starting the ionic application without forgetting the qualtrics parameters
 
-| Param           | Type                                      | Description                     |
-| --------------- | ----------------------------------------- | ------------------------------- |
-| **`brandId`**   | <code><a href="#string">String</a></code> | from de qualtrics platform (XM) |
-| **`projectId`** | <code><a href="#string">String</a></code> | from de qualtrics platform (XM) |
+| Param      | Type                                                                                             | Description                                                                       |
+| ---------- | ------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------- |
+| **`data`** | <code>{ brandId: <a href="#string">String</a>; projectId: <a href="#string">String</a>; }</code> | brandId from de qualtrics platform (XM) projectId from de qualtrics platform (XM) |
 
 --------------------
 
@@ -42,15 +41,15 @@ Must be called when starting the ionic application without forgetting the qualtr
 ### openSurvey(...)
 
 ```typescript
-openSurvey(interceptId: String) => Promise<QualtricsSurveyResponse>
+openSurvey(data: { interceptId: String; }) => Promise<QualtricsSurveyResponse>
 ```
 
 openSurvey
 Send the idIntercept of the survey that should be opened
 
-| Param             | Type                                      |
-| ----------------- | ----------------------------------------- |
-| **`interceptId`** | <code><a href="#string">String</a></code> |
+| Param      | Type                                                        | Description           |
+| ---------- | ----------------------------------------------------------- | --------------------- |
+| **`data`** | <code>{ interceptId: <a href="#string">String</a>; }</code> | interceptId to update |
 
 **Returns:** <code>Promise&lt;<a href="#qualtricssurveyresponse">QualtricsSurveyResponse</a>&gt;</code>
 
