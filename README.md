@@ -25,15 +25,15 @@ npx cap sync
 ### initializeQualtricsWithParams(...)
 
 ```typescript
-initializeQualtricsWithParams(data: { brandId: String; projectId: String; }) => void
+initializeQualtricsWithParams(data: { brandId: String; projectId: String; extraRefId: String; }) => void
 ```
 
 initializeQualtricsWithParams
 Must be called when starting the ionic application without forgetting the qualtrics parameters
 
-| Param      | Type                                                                                             | Description                                                                       |
-| ---------- | ------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------- |
-| **`data`** | <code>{ brandId: <a href="#string">String</a>; projectId: <a href="#string">String</a>; }</code> | brandId from de qualtrics platform (XM) projectId from de qualtrics platform (XM) |
+| Param      | Type                                                                                                                                       | Description                                                                                                                                             |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`data`** | <code>{ brandId: <a href="#string">String</a>; projectId: <a href="#string">String</a>; extraRefId: <a href="#string">String</a>; }</code> | brandId - from de qualtrics platform (XM), projectId - from de qualtrics platform (XM), extraRefId - it is the user's ban extracted from Mi Claro App } |
 
 --------------------
 
@@ -41,15 +41,15 @@ Must be called when starting the ionic application without forgetting the qualtr
 ### openSurvey(...)
 
 ```typescript
-openSurvey(data: { interceptId: String; }) => Promise<QualtricsSurveyResponse>
+openSurvey(data: { interceptId: String; callbackParamsQualtrics: string; }) => Promise<QualtricsSurveyResponse>
 ```
 
 openSurvey
 Send the idIntercept of the survey that should be opened
 
-| Param      | Type                                                        | Description           |
-| ---------- | ----------------------------------------------------------- | --------------------- |
-| **`data`** | <code>{ interceptId: <a href="#string">String</a>; }</code> | interceptId to update |
+| Param      | Type                                                                                         | Description                                                                        |
+| ---------- | -------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| **`data`** | <code>{ interceptId: <a href="#string">String</a>; callbackParamsQualtrics: string; }</code> | interceptId - to open, callbackParamsQualtrics - Claro user parameters in base64 } |
 
 **Returns:** <code>Promise&lt;<a href="#qualtricssurveyresponse">QualtricsSurveyResponse</a>&gt;</code>
 
