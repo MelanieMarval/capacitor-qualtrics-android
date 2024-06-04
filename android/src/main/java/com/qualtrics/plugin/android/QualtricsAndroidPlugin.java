@@ -36,12 +36,13 @@ public class QualtricsAndroidPlugin extends Plugin {
             return;
         }
         String interceptId = call.getString("interceptId");
-        JSObject ret = new JSObject();
-
+        String flag = call.getString("flag");
         String callbackParamsQualtrics = call.getString("callbackParamsQualtrics");
-        Qualtrics.instance().properties.setString("UPDATE_Q_EED", callbackParamsQualtrics);
-        Qualtrics.instance().properties.setString("FLAG", "MODAL");
 
+        Qualtrics.instance().properties.setString("Q_EED", callbackParamsQualtrics);
+        Qualtrics.instance().properties.setString("FLAG", flag);
+
+        JSObject ret = new JSObject();
         Qualtrics.instance().evaluateIntercept(interceptId, targetingResult -> {
             if (targetingResult.passed()) {
                 boolean isDisplay = Qualtrics.instance().displayIntercept(getContext(), interceptId);
