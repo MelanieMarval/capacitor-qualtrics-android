@@ -22,8 +22,9 @@ public class QualtricsAndroidPlugin extends Plugin {
         }
         String brandId = call.getString("brandId");
         String projectId = call.getString("projectId");
+        String extraRefId = call.getString("extraRefId");
 
-        Qualtrics.instance().initializeProject(brandId, projectId, getContext());
+        Qualtrics.instance().initializeProject(brandId, projectId, extraRefId, getContext());
 
         call.resolve();
     }
@@ -35,13 +36,22 @@ public class QualtricsAndroidPlugin extends Plugin {
             return;
         }
         String interceptId = call.getString("interceptId");
-        JSObject ret = new JSObject();
+        String flag = call.getString("flag");
+        String callbackParamsQualtrics = call.getString("callbackParamsQualtrics");
 
+        Qualtrics.instance().properties.setString("Q_EED", callbackParamsQualtrics);
+        Qualtrics.instance().properties.setString("FLAG", flag);
+
+        JSObject ret = new JSObject();
         Qualtrics.instance().evaluateIntercept(interceptId, targetingResult -> {
             if (targetingResult.passed()) {
-                ret.put("success", true);
-                Qualtrics.instance().displayIntercept(getContext(), interceptId);
-                Log.v("Qualtrics", "displayIntercept " + interceptId);
+                boolean isDisplay = Qualtrics.instance().displayIntercept(getContext(), interceptId);
+                if (isDisplay) {
+                    ret.put("success", true);
+                } else {
+                    ret.put("success", false);
+                    ret.put("message", "Qualtrics survey no displayed");
+                }
             } else if (targetingResult.getTargetingResultStatus() != null) {
                 ret.put("success", false);
                 if (targetingResult.getError() != null) {

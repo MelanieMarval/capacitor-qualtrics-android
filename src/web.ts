@@ -6,15 +6,16 @@ import { QualtricsAndroid } from './index';
 
 export class QualtricsAndroidWeb extends WebPlugin implements QualtricsAndroidPlugin {
 
-    initializeQualtricsWithParams(data: {brandId: String, projectId: String}): void {
+    initializeQualtricsWithParams(data: {brandId: string, projectId: string, extraRefId: string}): void {
         // send params to android
         console.log('initializeQualtricsWithParams');
         console.log(data.brandId);
         console.log(data.projectId);
+        console.log(data.extraRefId);
         QualtricsAndroid.initializeQualtricsWithParams(data);
     }
 
-    openSurvey(data: {interceptId: String}): Promise<QualtricsSurveyResponse> {
+    openSurvey(data: {interceptId: string, flag: string, callbackParamsQualtrics: string}): Promise<QualtricsSurveyResponse> {
         console.log('openSurvey');
         console.log(data.interceptId);
         return QualtricsAndroid.openSurvey(data)

@@ -1,2 +1,12 @@
 include ':capacitor-android'
 project(':capacitor-android').projectDir = new File('../node_modules/@capacitor/android/capacitor')
+//
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+        maven {
+            url = uri("https://s3-us-west-2.amazonaws.com/si-mobile-sdks/android/")
+        }
+    }
+}
