@@ -16,27 +16,49 @@ public class QualtricsAndroidPlugin: CAPPlugin {
             "value": implementation.echo(value)
         ])
     }
-
+    
     @objc public func initializeQualtricsWithParams(_ call: CAPPluginCall){
-        print("Hola samuel encuestas on qualtrics")
-        let value = call.getString("value") ?? ""
-        //Qualtrics.shared.initializeProject(brandId: "claropuertorico", projectId: "ZN_aaxt7pZtTL1fNzw", extRefId: "EXT_REF_ID", completion: { (myInitializationResult) in print(myInitializationResult);})
+      
+        //Qualtrics Params from ionic
+        let BrandId = call.getString("brandId") ?? ""
+        let ProjectId = call.getString("projectId") ?? ""
+        let BAN = call.getString("extraRefId") ?? ""
+        print("initializeQualtricsWithParams", BrandId, ProjectId, BAN)
+        
+        //initialize
+        Qualtrics.shared.initializeProject(
+            brandId: BrandId,
+            projectId: ProjectId,
+            extRefId: BAN,
+            completion: {
+                (myInitializationResult) in print(myInitializationResult);
+            }
+        )
+        
+        // Send response to ionic
         call.resolve(
-            [
-                    "value": value
-                ]
+            ["resp": true]
         )
     }
-
+    
     @objc public func openSurvey(_ call: CAPPluginCall)  {
-
+        let MyID  = call.getString("interceptId") ?? ""
+        let flag  = call.getString("flag") ?? ""
+        let callbackParamsQualtrics  = call.getString("callbackParamsQualtrics") ?? ""
+        
+        Qualtrics.shared.properties.setString(string: callbackParamsQualtrics, for: "Q_EED")
+        Qualtrics.shared.properties.setString(string: flag, for: "FLAG")
+        
+        
+        print("openSurvey callbackParamsQualtrics", MyID, callbackParamsQualtrics)
+        
         if let bridgeViewController = bridge?.viewController as? CAPBridgeViewController {
             Qualtrics.shared.evaluateProject { (targetingResults) in
                 for (interceptID, result) in targetingResults {
                     if result.passed() {
-                        call.resolve()
+                        call.resolve(["resp": true])
                         let displayed = Qualtrics.shared.display(viewController: bridgeViewController)
-
+                       
                     }
                 }
             }

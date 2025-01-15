@@ -25,7 +25,7 @@ npx cap sync
 ### initializeQualtricsWithParams(...)
 
 ```typescript
-initializeQualtricsWithParams(brandId: String, projectId: String) => void
+initializeQualtricsWithParams(data: { brandId: string; projectId: string; extraRefId: string; }) => void
 ```
 
 initializeQualtricsWithParams
